@@ -36,6 +36,9 @@
       <height>32</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Digite apenas a matricula do aluno</string>
+    </property>
     <property name="text">
      <string>Consultar</string>
     </property>
@@ -66,17 +69,7 @@
      <string>Remover</string>
     </property>
    </widget>
-   <widget class="QTableView" name="tableView">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>180</y>
-      <width>501</width>
-      <height>192</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -116,6 +109,29 @@
      </item>
     </layout>
    </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>70</y>
+      <width>71</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Mostrar</string>
+    </property>
+   </widget>
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>180</y>
+      <width>481</width>
+      <height>181</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -123,7 +139,7 @@
      <x>0</x>
      <y>0</y>
      <width>534</width>
-     <height>24</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

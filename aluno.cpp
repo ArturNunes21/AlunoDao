@@ -33,8 +33,7 @@ void Aluno::setNome(const QString &newNome)
 
 QString Aluno::getDados() const
 {
-    QString dados = "Matrícula: " + matricula + "\n";
-    dados += "Nome: " + nome + "\n";
+    QString dados = matricula + ";" + nome;
     return dados;
 }
 

@@ -6,6 +6,7 @@
 #include <list>
 #include <QString>
 #include <fstream>
+#include <string>
 
 namespace Artur {
 
@@ -17,12 +18,13 @@ public:
     void alterar(Aluno* obj);  // Update
     void deletar(QString const &id);  // Delete
     std::list<QString>* listar();
+    std::list<Aluno*>* lerArquivo();
 
 private:
     Aluno* buscarArquivo(QString const& id);
     void gravarArquivo(std::list<Aluno*>* lista);
     QString nomeArquivo;
-    std::list<Aluno*>* lerArquivo();
+    std::string enderecoArquivo = "C:/Users/Artur.Resende/Documents/Artur Nunes/Codigos QT/AlunoDao-main/AlunoDao-main/alunos.txt.txt";
 };
 
 }  // namespace

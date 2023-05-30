@@ -11,8 +11,8 @@ AlunoDAO::AlunoDAO()
 
 void AlunoDAO::inserir(Aluno* obj){//Create
    std::list<Artur::Aluno*>* lista = lerArquivo(); //Recebe uma lista com todos os objetos de alunos do arquivo
-   if(this->buscarArquivo(obj->getMatricula())!=nullptr){
-       throw QString("Aluno ja se encontra no arquivo.");    //se o aluno ja esta na lista, não é inserido novamente
+   if(this->buscarArquivo(obj->getMatricula())!=nullptr){   //Verifica se o aluno esta no arquivo
+       throw QString("Matricula ja se encontra no arquivo.");    //se o aluno ja esta na lista, não é inserido novamente
    }else{
        lista->push_back(obj);   //Se o aluno não está no arquivo, é adicionado na lista
    }
@@ -26,7 +26,7 @@ Aluno* AlunoDAO::buscarArquivo(QString const &id){  //Retorna um ponteiro para o
     QString linhaQt;
     QStringList linhaQtList;
     std::ifstream arquivo;
-    arquivo.open("C:/Users/artur/QT Creator Projects/QTAlunos_Exemplo/QTAlunos_Exemplo/alunos.csv");//Abrir arquivo
+    arquivo.open(enderecoArquivo);//Abrir arquivo
     if(arquivo.is_open()){
         while(getline(arquivo, linha)){
             linhaQt = QString::fromStdString(linha); //Passa a informação de uma string para uma QString
@@ -40,22 +40,25 @@ Aluno* AlunoDAO::buscarArquivo(QString const &id){  //Retorna um ponteiro para o
             throw QString("Arquivo não pode ser aberto - buscarArquivo");
         }
     arquivo.close();//Fecha arquivo
-    return a;   //Caso aluno não seja encontrado, retorna nullptr
+    return a;   //Caso aluno não seja encontrado, retorna nullptr, senão, retorna ponteiro para o objeto
 }
 //Buscar aluno
 Aluno* AlunoDAO::buscar(QString const &id){
+    if(id==""){
+        throw QString("Matricula não fornecida.");
+    }
     Aluno* a = this->buscarArquivo(id);
     if(a != nullptr)
-        return a;
+        return a;   //Retorna o ponteiro para o objeto
     else
-        throw QString("Aluno não encontrado");
+        throw QString("Matricula não encontrada");
 }
 void AlunoDAO::alterar(Aluno* obj) {
     bool achou = false;
-    std::list<Aluno*>* lista = lerArquivo();
+    std::list<Aluno*>* lista = this->lerArquivo();  //Lista com ponteiro de todos os objeto tipo Aluno
     std::list<Aluno*>::iterator it;
-    for (it = lista->begin(); it != lista->end(); ++it) {
-        if ((*it)->getMatricula() == obj->getMatricula()) {
+    for (it = lista->begin(); it != lista->end(); ++it) {   //Percorre todos os objetos da classe Aluno
+        if ((*it)->getMatricula() == obj->getMatricula()) { //Encontra o objeto na lista
             it = lista->erase(it); // Remove obj_antigo da lista e avança o iterador
             lista->push_back(obj); // Insere obj na lista
             this->gravarArquivo(lista); // Grava lista
@@ -92,7 +95,7 @@ std::list<Aluno*>* AlunoDAO::lerArquivo(){
     QString linhaQt;
     QStringList linhaQtList;
     std::ifstream arquivo;
-    arquivo.open("C:/Users/artur/QT Creator Projects/QTAlunos_Exemplo/QTAlunos_Exemplo/alunos.csv");
+    arquivo.open(enderecoArquivo);
     if(arquivo.is_open()){
         while(getline(arquivo, linha)){
             linhaQt = QString::fromStdString(linha);    //Passa o valor de uma string para uma QString
@@ -109,7 +112,7 @@ std::list<Aluno*>* AlunoDAO::lerArquivo(){
 //Gravar Arquivo CSV
 void AlunoDAO::gravarArquivo(std::list<Aluno*>* lista){
     std::ofstream arquivo;
-    arquivo.open("alunos.csv");
+    arquivo.open(enderecoArquivo);
     if(arquivo.is_open()){
         std::list<Aluno*>::iterator it;
         for(it = lista->begin(); it != lista->end(); ++it)

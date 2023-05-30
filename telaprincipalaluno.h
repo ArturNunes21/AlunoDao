@@ -21,6 +21,12 @@ private slots:
     void on_btn_incluir_clicked();
     void on_btn_consultar_clicked();
 
+    void on_pushButton_atualizar_clicked();
+
+    void on_pushButton_remover_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::TelaPrincipalAluno *ui;
     //AlunoControler controlador;
